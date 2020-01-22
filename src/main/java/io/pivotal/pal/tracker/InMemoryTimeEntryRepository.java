@@ -35,14 +35,15 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     @Override
     public TimeEntry update(long id, TimeEntry timeEntry) {
         TimeEntry existing = find(id);
-        if(null == existing)
-            return null;
 
-        existing.setDate(timeEntry.getDate());
-        existing.setHours(timeEntry.getHours());
-        existing.setProjectId(timeEntry.getProjectId());
-        existing.setUserId(timeEntry.getUserId());
-        return existing;
+        if(Optional.ofNullable(existing).isPresent()){
+            TimeEntry updatedtimeEntry = new TimeEntry(existing.getId(), timeEntry.getProjectId(), timeEntry.getUserId(), timeEntry.getDate(), timeEntry.getHours());
+            timeEntryMap.put(String.valueOf(existing.getId()), updatedtimeEntry);
+            return updatedtimeEntry;
+        }else {
+            return null;
+        }
+
     }
 
     @Override
