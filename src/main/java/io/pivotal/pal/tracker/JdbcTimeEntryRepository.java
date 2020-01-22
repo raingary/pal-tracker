@@ -6,17 +6,16 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
+import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
 public class JdbcTimeEntryRepository implements TimeEntryRepository {
-    private MysqlDataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcTimeEntryRepository(MysqlDataSource dataSource) {
-        this.dataSource = dataSource;
+    public JdbcTimeEntryRepository(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
